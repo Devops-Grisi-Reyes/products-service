@@ -11,4 +11,6 @@ FROM openjdk:11
 
 COPY --from=builder /app/target/products-service-example-*.jar /target/products-service-example.jar
 
+EXPOSE 5001
+
 CMD ["java", "-jar", "/target/products-service-example.jar"]
