@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: service
+spec:
+  replicas: 1
+  containers:
+    - name: products-service
+      image: maurig13/devops-grisi-reyes:products-service-dev # substitute dev for env variable.
+      ports:
+        - containerPort: 5001
+          protocol: TCP
+      imagePullPolicy: Always
