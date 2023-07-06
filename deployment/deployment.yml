@@ -1,18 +1,63 @@
-apiVersion: apps
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-deployment
-  labels:
-    app: service
+  name: products-service
 spec:
   replicas: 1
-  containers:
-    - name: products-service
-      image: maurig13/devops-grisi-reyes:products-service-dev # substitute dev for env variable.
-      ports:
-        - containerPort: 5001
-          protocol: TCP
-      imagePullPolicy: Always
+  selector:
+    matchLabels:
+      app: products-service
+  template:
+    metadata:
+      labels:
+        app: products-service
+    spec:
+      containers:
+        - name: products-service
+          image: maurig13/devops-grisi-reyes:products-service-dev
+          ports:
+            - containerPort: 5001
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: ba  ckend-deployment
+#   labels:
+#     app: service
+# spec:
+#   replicas: 1
+#   containers:
+#     - name: products-service
+#       image: maurig13/devops-grisi-reyes:products-service-dev # substitute dev for env variable.
+#       ports:
+#         - containerPort: 5001
+#           protocol: TCP
+#       imagePullPolicy: Always
+# - name: orders-service
+#   image: maurig13/devops-grisi-reyes:orders-service-dev # substitute dev for env variable.
+#   ports:
+#     - containerPort: 5000
+#       protocol: TCP
+#   imagePullPolicy: Always
+
+# - name: payments-service
+#   image: maurig13/devops-grisi-reyes:payments-service-dev # substitute dev for env variable.
+#   ports:
+#     - containerPort: 5002
+#     resources:
+#       limits:
+#         memory: 250Mi
+#       requests:
+#         memory: 100Mi
+# - name: shipping-service
+#   image: maurig13/devops-grisi-reyes:shipping-service-dev # substitute dev for env variable.
+#   ports:
+#     - containerPort: 5003
+#     resources:
+#       limits:
+#         memory: 250Mi
+#       requests:
+#         memory: 100Mi
+
 # ---
 # kind: Service
 # apiVersion: v1
