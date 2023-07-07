@@ -13,8 +13,8 @@ env:
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
 jobs:
-  push_to_registry:
-    name: Push Docker image to Docker Hub
+  build:
+    name: Build and Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -44,8 +44,8 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  release:
-    needs: push_to_registry
+  deploy:
+    needs: build #[build, test]
     name: Deploy to EKS
     runs-on: ubuntu-latest
     steps:

@@ -4,6 +4,8 @@ metadata:
   name: products-service
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: products-service
@@ -17,6 +19,13 @@ spec:
           image: maurig13/devops-grisi-reyes:products-service-dev
           ports:
             - containerPort: 5000
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 5000
+          #     initialDelaySeconds: 5
+          #     periodSeconds: 5
+          #     successThreshold: 1
 
 ---
 apiVersion: v1
@@ -31,43 +40,3 @@ spec:
       protocol: TCP
   selector:
     run: products-service
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: ba  ckend-deployment
-#   labels:
-#     app: service
-# spec:
-#   replicas: 1
-#   containers:
-#     - name: products-service
-#       image: maurig13/devops-grisi-reyes:products-service-dev # substitute dev for env variable.
-#       ports:
-#         - containerPort: 5001
-#           protocol: TCP
-#       imagePullPolicy: Always
-# - name: orders-service
-#   image: maurig13/devops-grisi-reyes:orders-service-dev # substitute dev for env variable.
-#   ports:
-#     - containerPort: 5000
-#       protocol: TCP
-#   imagePullPolicy: Always
-
-# - name: payments-service
-#   image: maurig13/devops-grisi-reyes:payments-service-dev # substitute dev for env variable.
-#   ports:
-#     - containerPort: 5002
-#     resources:
-#       limits:
-#         memory: 250Mi
-#       requests:
-#         memory: 100Mi
-# - name: shipping-service
-#   image: maurig13/devops-grisi-reyes:shipping-service-dev # substitute dev for env variable.
-#   ports:
-#     - containerPort: 5003
-#     resources:
-#       limits:
-#         memory: 250Mi
-#       requests:
-#         memory: 100Mi
