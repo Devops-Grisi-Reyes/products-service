@@ -35,8 +35,10 @@ metadata:
   labels:
     run: products-service
 spec:
+  selector:
+    run: products-service
   ports:
     - port: 5000
       protocol: TCP
-  selector:
-    run: products-service
+      targetPort: 5000
+  type: LoadBalancer
