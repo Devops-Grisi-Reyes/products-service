@@ -9,7 +9,6 @@ spec:
     rollingUpdate:
       maxSurge: 25%
       maxUnavailable: 25%
-      initialDelaySeconds: 5
   selector:
     matchLabels:
       app: products-service
