@@ -9,6 +9,7 @@ spec:
     rollingUpdate:
       maxSurge: 25%
       maxUnavailable: 25%
+      initialDelaySeconds: 5
   selector:
     matchLabels:
       app: products-service
@@ -22,13 +23,13 @@ spec:
           image: maurig13/devops-grisi-reyes:products-service-dev
           ports:
             - containerPort: 5001
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 5001
-              initialDelaySeconds: 5
-              periodSeconds: 5
-              successThreshold: 1
+          # livenessProbe:
+          #   exec:
+          #     command:
+          #     - cat
+          #     - /
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 5
 
 ---
 apiVersion: v1
