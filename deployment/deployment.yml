@@ -22,13 +22,13 @@ spec:
           image: maurig13/devops-grisi-reyes:products-service-dev
           ports:
             - containerPort: 5001
-          # readinessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: 5000
-          #     initialDelaySeconds: 5
-          #     periodSeconds: 5
-          #     successThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5001
+              initialDelaySeconds: 5
+              periodSeconds: 5
+              successThreshold: 1
 
 ---
 apiVersion: v1
