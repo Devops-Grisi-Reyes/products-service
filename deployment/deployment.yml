@@ -43,5 +43,4 @@ spec:
   ports:
     - port: 5001
       protocol: TCP
-      targetPort: 5001
   type: LoadBalancer
