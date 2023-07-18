@@ -36,6 +36,6 @@ spec:
   ports:
     - port: 8080
       targetPort: 8080
-      nodePort: 30038
+      # nodePort: 30038
       protocol: TCP
   type: LoadBalancer
