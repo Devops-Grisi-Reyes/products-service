@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: products-service
+  labels:
+    app: products-service
 spec:
   replicas: 1
   strategy:
@@ -28,11 +30,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: products-service
-  labels:
-    name: products-service
+  # labels:
+  #   name: products-service
 spec:
   selector:
-    name: products-service
+    app: products-service
+    # name: products-service
   ports:
     - port: 8080
       targetPort: 8080
