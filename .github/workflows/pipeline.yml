@@ -15,6 +15,7 @@ env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  PERSONAL_ACCESS_TOKEN_INFRA: ${{ secrets.PERSONAL_ACCESS_TOKEN_INFRA }}
 
 jobs:
   build:
@@ -118,5 +119,11 @@ jobs:
         run: aws eks update-kubeconfig --name cluster-grisi-reyes-${{ github.ref_name }}
 
       - name: Deploy to EKS
+        env:
+          TOKEN: ${{ env.PERSONAL_ACCESS_TOKEN_INFRA }}
         run: |
-          kubectl apply -f deployment/deployment.yml
+          curl -H "Authorization: token ${TOKEN}" \
+            -H 'Accept: application/vnd.github.v3.raw' \
+            -O \
+            -L https://api.github.com/repos/Devops-Grisi-Reyes/Infra/contents/deployments/products-service-deployment.yml
+          kubectl apply -f deployment.yml
