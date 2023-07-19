@@ -106,14 +106,14 @@ jobs:
           aws-region: ${{ env.AWS_REGION}}
 
       - name: Update kube config
-        run: aws eks update-kubeconfig --name cluster-grisi-reyes-${{ github.ref_name }}
+        run: aws eks update-kubeconfig --region ${{ env.AWS_REGION}} --name cluster-grisi-reyes-${{ github.ref_name }}
+
+      - uses: actions/checkout@v3
+        with:
+          repository: Devops-Grisi-Reyes/Infra
+          ref: master
+          token: ${{ env.PERSONAL_ACCESS_TOKEN_INFRA }}
 
       - name: Deploy to EKS
-        env:
-          TOKEN: ${{ env.PERSONAL_ACCESS_TOKEN_INFRA }}
         run: |
-          curl -H "Authorization: token ${TOKEN}" \
-            -H 'Accept: application/vnd.github.v3.raw' \
-            -O \
-            -L https://api.github.com/repos/Devops-Grisi-Reyes/Infra/contents/deployments/products-service-deployment.yml
-          kubectl apply -f deployment.yml
+          kubectl apply -f ./deployments/shipping-service-deployment.yml
